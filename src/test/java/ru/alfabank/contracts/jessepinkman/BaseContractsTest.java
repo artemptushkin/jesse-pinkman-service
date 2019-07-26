@@ -15,6 +15,7 @@ import org.springframework.web.context.WebApplicationContext;
 @AutoConfigureStubRunner(
 	ids = { "ru.alfabank.contracts:heisenberg-service:LATEST:8080" },
 	consumerName = "jesse-pinkman",
+	stubsPerConsumer = true,
 	stubsMode = StubRunnerProperties.StubsMode.REMOTE,
 	repositoryRoot = "git://git@github.com:artemptushkin/spring-cloud-contract-git-repo.git"
 )
