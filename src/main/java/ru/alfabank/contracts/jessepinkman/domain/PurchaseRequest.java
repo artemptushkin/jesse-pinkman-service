@@ -1,8 +1,10 @@
 package ru.alfabank.contracts.jessepinkman.domain;
 
 import lombok.Data;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class PurchaseRequest {
-	private Double money;
+	@NotNull
+	private Integer amount;
 }

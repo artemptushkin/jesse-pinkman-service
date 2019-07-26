@@ -8,5 +8,5 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 public class PurchaseResponse {
 	@NotNull
-	private Integer amount;
+	private Double price;
 }

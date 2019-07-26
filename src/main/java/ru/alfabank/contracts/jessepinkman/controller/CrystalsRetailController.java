@@ -9,13 +9,13 @@ import ru.alfabank.contracts.jessepinkman.domain.AmountRequest;
 import ru.alfabank.contracts.jessepinkman.domain.AmountResponse;
 import ru.alfabank.contracts.jessepinkman.domain.PurchaseRequest;
 import ru.alfabank.contracts.jessepinkman.domain.PurchaseResponse;
+import java.math.BigDecimal;
 
 @RequestMapping("/crystals")
 @RestController
 public class CrystalsRetailController {
 
 	private final RestTemplate restTemplate;
-	private static final Double EXPECTED_PRICE = 50.0;
 	private static final Double MARGIN = 1.5;
 
 	public CrystalsRetailController(RestTemplate restTemplate) {
@@ -24,14 +24,18 @@ public class CrystalsRetailController {
 
 	@RequestMapping("/blue/buy")
 	public PurchaseResponse buyBlue(@RequestBody PurchaseRequest purchaseRequest) {
-		Double requestedAmount = purchaseRequest.getMoney() / ( EXPECTED_PRICE * MARGIN );
-		AmountRequest amountRequest = new AmountRequest().setAmount(requestedAmount.intValue());
+		AmountRequest amountRequest = new AmountRequest().setAmount(purchaseRequest.getAmount());
 
 		ResponseEntity<AmountResponse> responseEntity = restTemplate.postForEntity(
 			"/blueCrystals/create", amountRequest, AmountResponse.class);
 
 		if (responseEntity.getBody() == null) throw new IllegalStateException("Where is my crystals, b$tch");
 
-		return new PurchaseResponse().setAmount(responseEntity.getBody().getAmount());
+		return new PurchaseResponse().setPrice(
+			responseEntity.getBody()
+				.getPrice()
+				.multiply(BigDecimal.valueOf(MARGIN))
+				.doubleValue()
+		);
 	}
 }
