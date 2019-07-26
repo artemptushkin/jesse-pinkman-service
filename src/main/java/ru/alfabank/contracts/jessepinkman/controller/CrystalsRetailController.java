@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import ru.alfabank.contracts.jessepinkman.domain.AmountRequest;
-import ru.alfabank.contracts.jessepinkman.domain.AmountResponse;
-import ru.alfabank.contracts.jessepinkman.domain.PurchaseRequest;
-import ru.alfabank.contracts.jessepinkman.domain.PurchaseResponse;
+import ru.alfabank.contracts.jessepinkman.domain.*;
 import java.math.BigDecimal;
 
 @RequestMapping("/crystals")
@@ -16,7 +13,7 @@ import java.math.BigDecimal;
 public class CrystalsRetailController {
 
 	private final RestTemplate restTemplate;
-	private static final Double MARGIN = 1.5;
+	private static final BigDecimal MARGIN = BigDecimal.valueOf(1.5);
 
 	public CrystalsRetailController(RestTemplate restTemplate) {
 		this.restTemplate = restTemplate;
@@ -31,11 +28,13 @@ public class CrystalsRetailController {
 
 		if (responseEntity.getBody() == null) throw new IllegalStateException("Where is my crystals, b$tch");
 
-		return new PurchaseResponse().setPrice(
+		Double fetchedPrice = responseEntity.getBody().getPrice().multiply(MARGIN).doubleValue();
+
+		if (fetchedPrice.compareTo(purchaseRequest.getPrice()) != 0) throw new PriceHasChangedException("Price has changed, b$tch");
+
+		return new PurchaseResponse().setAmount(
 			responseEntity.getBody()
-				.getPrice()
-				.multiply(BigDecimal.valueOf(MARGIN))
-				.doubleValue()
+				.getAmount()
 		);
 	}
 }

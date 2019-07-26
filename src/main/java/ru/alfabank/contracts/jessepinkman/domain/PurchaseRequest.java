@@ -7,4 +7,6 @@ import javax.validation.constraints.NotNull;
 public class PurchaseRequest {
 	@NotNull
 	private Integer amount;
+	@NotNull
+	private Double price;
 }
