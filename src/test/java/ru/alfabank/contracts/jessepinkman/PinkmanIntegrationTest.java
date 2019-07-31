@@ -16,7 +16,7 @@ public class PinkmanIntegrationTest extends BaseContractsTest {
 		// given:
 			MockMvcRequestSpecification request = given()
 					.header("Content-Type", "application/json;charset=UTF-8")
-					.body("{\"amount\":200,\"price\":18000.0}");
+					.body("{\"amount\":200,\"price\":15000.0}");
 
 		// when:
 			ResponseOptions response = given().spec(request)

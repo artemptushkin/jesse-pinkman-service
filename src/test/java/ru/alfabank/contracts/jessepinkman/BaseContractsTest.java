@@ -13,7 +13,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @AutoConfigureStubRunner(
-	ids = { "ru.alfabank.contracts:heisenberg-service:+:stubs:4560" },
+	ids = { "ru.alfabank.contracts:heisenberg-service:+:stubs:8080" },
 	consumerName = "jesse-pinkman",
 	stubsPerConsumer = true,
 	stubsMode = StubRunnerProperties.StubsMode.REMOTE,
