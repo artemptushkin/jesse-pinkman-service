@@ -6,5 +6,5 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public class AmountRequest {
-	private Integer amount;
+	private Integer quantity;
 }

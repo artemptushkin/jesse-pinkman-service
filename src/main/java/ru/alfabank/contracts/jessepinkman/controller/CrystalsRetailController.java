@@ -21,7 +21,7 @@ public class CrystalsRetailController {
 
 	@RequestMapping("/blue/buy")
 	public PurchaseResponse buyBlue(@RequestBody PurchaseRequest purchaseRequest) {
-		AmountRequest amountRequest = new AmountRequest().setAmount(purchaseRequest.getAmount());
+		AmountRequest amountRequest = new AmountRequest().setQuantity(purchaseRequest.getAmount());
 
 		ResponseEntity<AmountResponse> responseEntity = restTemplate.postForEntity(
 			"/blueCrystals/create", amountRequest, AmountResponse.class);
