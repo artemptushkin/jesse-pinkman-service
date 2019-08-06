@@ -2,14 +2,47 @@ package ru.alfabank.contracts.jessepinkman;
 
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
 import io.restassured.response.ResponseOptions;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
+import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
 
 import static io.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static org.springframework.cloud.contract.verifier.assertion.SpringCloudContractAssertions.assertThat;
 
-public class PinkmanIntegrationTest extends BaseContractsTest {
+@SpringBootTest
+@AutoConfigureStubRunner(
+	ids = { "ru.alfabank.contracts:heisenberg-service:+:stubs:2222" },
+	consumerName = "jesse-pinkman",
+	stubsPerConsumer = true,
+	stubsMode = StubRunnerProperties.StubsMode.REMOTE,
+	repositoryRoot = "git://git@github.com:artemptushkin/spring-cloud-contract-git-repo.git"
+)
+@ActiveProfiles("test")
+@RunWith(SpringJUnit4ClassRunner.class)
+public class PinkmanIntegrationTest {
+
+	@Autowired
+	protected WebApplicationContext applicationContext;
+
+	@Before
+	public void setUp() {
+		RestAssuredMockMvc.mockMvc(
+			MockMvcBuilders
+				.webAppContextSetup(applicationContext)
+				.build()
+		);
+	}
 
 	@Test
 	public void validate_should_sell_crystals_ok() throws Exception {
