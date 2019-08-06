@@ -22,7 +22,7 @@ import static org.springframework.cloud.contract.verifier.assertion.SpringCloudC
 
 @SpringBootTest
 @AutoConfigureStubRunner(
-	ids = { "ru.alfabank.contracts:heisenberg-service:+:stubs:2222" },
+	ids = { "ru.alfabank.contracts:heisenberg-service:+:2222" },
 	consumerName = "jesse-pinkman",
 	stubsPerConsumer = true,
 	stubsMode = StubRunnerProperties.StubsMode.REMOTE,
