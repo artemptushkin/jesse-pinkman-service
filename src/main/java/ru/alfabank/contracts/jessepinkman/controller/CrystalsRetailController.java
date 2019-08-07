@@ -24,7 +24,7 @@ public class CrystalsRetailController {
 		AmountRequest amountRequest = new AmountRequest().setAmount(purchaseRequest.getAmount());
 
 		ResponseEntity<AmountResponse> responseEntity = restTemplate.postForEntity(
-			"/blueCrystals/create", amountRequest, AmountResponse.class);
+			"/blueCrystals", amountRequest, AmountResponse.class);
 
 		if (responseEntity.getBody() == null) throw new IllegalStateException("Where is my crystals, b$tch");
 
