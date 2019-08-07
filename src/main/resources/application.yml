@@ -4,3 +4,7 @@ server:
 logging:
   level:
     org.springframework.cloud: debug
+
+spring:
+  profiles:
+    active: production
