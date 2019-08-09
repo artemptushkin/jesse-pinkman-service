@@ -53,7 +53,7 @@ public class PinkmanIntegrationTest {
 
 		// when:
 			ResponseOptions response = given().spec(request)
-					.post("/crystals/blue/buy");
+					.post("/shop/blue");
 
 		// then:
 			assertThat(response.statusCode()).isEqualTo(200);

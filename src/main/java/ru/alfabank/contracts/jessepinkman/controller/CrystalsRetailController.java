@@ -1,6 +1,7 @@
 package ru.alfabank.contracts.jessepinkman.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,8 +9,8 @@ import org.springframework.web.client.RestTemplate;
 import ru.alfabank.contracts.jessepinkman.domain.*;
 import java.math.BigDecimal;
 
-@RequestMapping("/crystals")
 @RestController
+@RequestMapping("/shop")
 public class CrystalsRetailController {
 
 	private final RestTemplate restTemplate;
@@ -19,7 +20,7 @@ public class CrystalsRetailController {
 		this.restTemplate = restTemplate;
 	}
 
-	@RequestMapping("/blue/buy")
+	@PostMapping("/blue")
 	public PurchaseResponse buyBlue(@RequestBody PurchaseRequest purchaseRequest) {
 		AmountRequest amountRequest = new AmountRequest().setAmount(purchaseRequest.getAmount());
 
